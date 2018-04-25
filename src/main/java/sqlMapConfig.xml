@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 全局settings -->
+
+	<!-- 别名 -->
+	<typeAliases>
+		<package name="com.peny.po"/> 
+	</typeAliases>
+
+	<!-- spring-mybats，扫描mapper,无需配置，遵循mapper.xml和mapper.java同名 <mappers> <mapper 
+		resource="com/liu/mapper/UserInfoMapper.xml" /> <mapper resource="com/liu/mapper/ViewInfoMapper.xml" 
+		/> </mappers> -->
+
+
+</configuration>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.peny.mapper.GoodsMapperCustom">
+<!-- 定义动态sql片段 -->
+	<sql id="goods_query_where"> 
+		<if test="goodsCustom!=null">
+			<if test="goodsCustom.goodsname!=null and goodsCustom.goodsname!=''">
+				goods.goodsname like '%${goodsCustom.goodsname}%'
+			</if>
+		</if>
+	</sql>
+	<!-- 查询 -->
+  <select id="findGoodsList" parameterType="com.peny.po.GoodQueryVo" resultType="com.peny.po.GoodsCustom">
+  	select goods.* from goods <where> <include refid="goods_query_where"></include> 
+  </where>
+  </select>
+</mapper>
