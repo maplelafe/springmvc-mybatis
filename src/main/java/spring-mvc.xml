@@ -64,7 +64,7 @@
         <property name="converters">
             <list>
                 <bean class="com.peny.controller.convert.StringDateConvert">
-                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"></constructor-arg>
+                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
                 </bean>
             </list>
         </property>

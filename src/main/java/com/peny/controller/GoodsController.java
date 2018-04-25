@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.peny.po.GoodQueryVo;
 import com.peny.po.GoodsCustom;
 import com.peny.service.GoodsService;
-
-
-java.lang.String
 
 @Controller
 @RequestMapping("/goods")
@@ -31,10 +29,10 @@ public class GoodsController {
 	private GoodsService goodsserice;
 
 	@RequestMapping("/querygoods")
-	public ModelAndView querygoods(HttpServletRequest request) {
+	public ModelAndView querygoods(HttpServletRequest request,GoodQueryVo vo) {
 		ModelAndView model = new ModelAndView();
 		//第一种参数绑定方式：System.out.println(request.getParameter("b"));	
-		List<GoodsCustom> goods=goodsserice.findGoodsList(null);
+		List<GoodsCustom> goods=goodsserice.findGoodsList(vo);
 		model.addObject("goods", goods);
 		model.setViewName("goodslist");
 		return model;		
@@ -77,12 +75,13 @@ public class GoodsController {
 	
 	
 	//处于安全考虑,限制http请求方法
-	@RequestMapping(value="/deletegoods",method= {RequestMethod.POST,RequestMethod.GET})
-	public String deletegoods(HttpServletRequest request,Model model) {
+	@RequestMapping(value="/deletegoods",method= {RequestMethod.POST})
+	public String deletegoods(HttpServletRequest request,Integer [] goodsid,Model model) {
 		GoodsCustom gc = new GoodsCustom();
+		System.out.println("delete!");
 		//boolean b=goodsserice.updateGoods(1, gc);
-		model.addAttribute("b", 1);
-		request.setAttribute("a", 2);
+		//model.addAttribute("b", 1);
+		//request.setAttribute("a", 2);
 		//return "goods/delete";
 		//return "redirect:querygoods";
 		return "forward:querygoods";
