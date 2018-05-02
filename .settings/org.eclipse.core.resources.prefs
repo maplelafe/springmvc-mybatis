@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/validator/hibernate_validator_message.properties=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/error.jsp=UTF-8
+encoding//src/main/webapp/json.jsp=UTF-8
 encoding/<project>=UTF-8

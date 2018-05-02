@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>修改用户</title>
 </head>
-<body><form id = "goodform"  method="post"  action="updategoodssubmit">
+<body>
+<c:forEach items="${errors}"  var="error">
+ ${error.defaultMessage} 
+</c:forEach>
+<form id = "goodform"  method="post"  action="updategoodssubmit" enctype=multipart/form-data>
 <table width="80%"  border="1">
 
 	 <tr><td></td><td><input type="hidden" name="goodsid" value="${good.goodsid} "></td></tr>	
@@ -17,6 +22,12 @@
 	<tr><td>detailcate:</td><td><input type="text"   name="detailcate" value="${good.detailcate }"/></td></tr>
 	<tr><td>decription:</td><td><input type="text"   name="description" value="${good.description }"/>	</td></tr>
 	<tr><td>activity:</td><td><input type="text" name="activityid" value="${good.activityid }"/></td></tr>
+	<tr><td>商品图片:</td><td><c:if test="${good.pic !=null }">
+		<image src="/pic/${good.pic}" width="100%" height="100%"></image>
+		<br/>
+	</c:if>
+	<input type="file" name="good_pic">
+	</td></tr>
     <input type="submit" value="保存"/>
 </table>
 </form>

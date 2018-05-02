@@ -29,6 +29,11 @@
 <br/>
 
 <tr><td></td><td>商品名称 :<input type="text" name="goodsCustom.goodsname" /></td>
+<td>类别:
+<select name="goodtype" ><c:forEach items="${goodtypes }" var="goodtype">
+	<option value="${ goodtype.key}">${goodtype.value }</option>
+</c:forEach></select>
+</td>
 <td><input type="button" value="查询"  onclick="query()"></td>
 <td><input type="button" value="删除"  onclick="batchdel()"></td>
 </tr>
@@ -44,7 +49,7 @@
 	<tr>
 	<td><input type="checkbox" name="goodsid" value="${ map.goodsid}"/></td>
 	<td>${map.goodsname}</td>
-	<td >${map.price}</td>
+	<td width="10%">${map.price}</td>
 	<td width="10%">${map.num}</td>
 	<td width="20%"><fmt:formatDate value="${map.uptime}"  pattern="yyyy-mm-dd HH:mm:ss"/></td>
 	<td width="30%">${map.description}</td>

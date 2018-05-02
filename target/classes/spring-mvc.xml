@@ -17,7 +17,22 @@
          http://www.springframework.org/schema/mvc/spring-mvc.xsd
         ">
 
-	<mvc:annotation-driven conversion-service="conversionService" />   <!-- -->
+
+	
+	<!-- 配置必须在 <mvc:annotation-driven /> 之前，否则将不会启效 -->
+	<bean id="utf8StringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean> 
+	    <!-- 静态资源的解析 -->
+    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources> 
+    <mvc:resources location="/img/" mapping="/img/**"></mvc:resources> 
+     <mvc:resources mapping="/css/**" location="/css/" /> 
      <!--SpringMVC的配置，包含网站跳转逻辑的控制配置
     <context:component-scan base-package="com.peny.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
@@ -48,17 +63,7 @@
 	        </list>  
 	    </property>  
 	</bean> --> 
-	
-	<!-- 配置必须在 <mvc:annotation-driven /> 之前，否则将不会启效 -->
-	<bean id="utf8StringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/plain;charset=UTF-8</value>
-				<value>text/html;charset=UTF-8</value>
-				<value>application/json;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>  
+
 	
 	  <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
@@ -69,6 +74,34 @@
             </list>
         </property>
     </bean>
+    
+    	<mvc:annotation-driven conversion-service="conversionService" validator="validator"/>   <!-- -->
+    	
+<!-- hibernate validate 校验框架 -->
+   <bean id="hibernate_validator_messages" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:validator/hibernate_validator_message</value>
+            </list>
+        </property>
+        <!-- 资源文件编码格式,java获取会导致乱码
+        <property name="fileEncodings" value="UTF-8" /> -->
+        <!-- 对资源文件内容缓存时间，单位秒 -->
+        <property name="cacheSeconds" value="120" />
+        <!--不会乱码 -->
+         <property name="fileEncodings">
+            <props>
+                <prop key="classpath:validator/hibernate_validator_message">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+      	<!-- 校验器 -->
+ 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+        <!-- 指定使用的资源文件，默认classpath下的ValidatorMessages.properties -->
+        <property name="validationMessageSource" ref="hibernate_validator_messages"/>
+    </bean>
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 --> 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -78,11 +111,14 @@
 	</bean>
 
 	<!-- 支持上传文件 -->  
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="5242880"><!-- 最大文件上传5M -->
+    	</property>
+    </bean>
     
     <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
  
-    
+    <bean class="com.peny.exception.GoodExceptionResovler"></bean>
     <!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
 
 </beans>

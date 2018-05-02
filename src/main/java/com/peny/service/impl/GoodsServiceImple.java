@@ -32,8 +32,11 @@ public class GoodsServiceImple implements GoodsService{
 	public GoodsCustom findGoodsById(int i) {
 		// TODO Auto-generated method stub
 		Goods g=goodsMapper.selectByPrimaryKey(i);
-		GoodsCustom gc = new GoodsCustom();
-		BeanUtils.copyProperties(g, gc);
+		GoodsCustom gc = null;
+		if(g!=null) {
+			gc = new GoodsCustom();
+			BeanUtils.copyProperties(g, gc);
+		}
 		return gc;
 	}
 
