@@ -24,6 +24,12 @@
 </script>
 </head>
 <body>
+
+当前用户：${ username},
+<c:if test="${username!=null }">
+
+	<a href="${pageContext.request.contextPath }/logout">退出</a>
+</c:if>
 <table width="80%" border="1">
 <form name="goodsform" action="querygoods" method="post">
 <br/>
@@ -33,6 +39,8 @@
 <select name="goodtype" ><c:forEach items="${goodtypes }" var="goodtype">
 	<option value="${ goodtype.key}">${goodtype.value }</option>
 </c:forEach></select>
+
+
 </td>
 <td><input type="button" value="查询"  onclick="query()"></td>
 <td><input type="button" value="删除"  onclick="batchdel()"></td>

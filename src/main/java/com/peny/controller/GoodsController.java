@@ -45,8 +45,7 @@ public class GoodsController {
 		Map<String,String> goodtype = new HashMap<String,String>();
 		goodtype.put("1", "男");
 		goodtype.put("2", "女");
-		return goodtype;
-		
+		return goodtype;		
 	}
 	
 	

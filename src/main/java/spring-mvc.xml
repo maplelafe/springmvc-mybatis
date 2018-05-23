@@ -75,8 +75,27 @@
         </property>
     </bean>
     
-    	<mvc:annotation-driven conversion-service="conversionService" validator="validator"/>   <!-- -->
-    	
+
+   
+   <!--interceptor拦截器  -->
+    <mvc:interceptors>
+        	<!-- 多个拦截器顺序执行 -->
+        	<mvc:interceptor> 
+    	<!-- 拦截所有url，包括子url -->
+    		<mvc:mapping path="/**"/>
+    		<bean class="com.peny.interceptor.LoginInterceptor"></bean>
+    	</mvc:interceptor>
+    	<mvc:interceptor> 
+    	<!-- 拦截所有url，包括子url -->
+    		<mvc:mapping path="/**"/>
+    		<bean class="com.peny.interceptor.HandlerInterceptor1"></bean>
+    	</mvc:interceptor>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<bean class="com.peny.interceptor.HandlerInterceptor2"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+    
 <!-- hibernate validate 校验框架 -->
    <bean id="hibernate_validator_messages" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">
@@ -95,6 +114,7 @@
             </props>
         </property>
     </bean>
+
     
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
       	<!-- 校验器 -->
@@ -120,5 +140,5 @@
  
     <bean class="com.peny.exception.GoodExceptionResovler"></bean>
     <!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
-
+	   <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>   
 </beans>
