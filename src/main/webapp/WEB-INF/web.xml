@@ -44,6 +44,22 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <url-pattern>*.action</url-pattern>
     </servlet-mapping>
     
+    <!--允许跨域的路径，这里只允许我们发布的Web服务跨域
+    <filter-mapping>
+        <filter-name>CORS</filter-name>
+
+        <url-pattern>/ws/*</url-pattern>
+    </filter-mapping>-->
+        <!--增加对cxf的支持  cxf webservices -->
+     <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/webService/*</url-pattern>
+    </servlet-mapping>
+    
 
     <!--字符编码过滤器,一定放在最前面-->
     <filter>
