@@ -109,7 +109,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.1.26</version>
+			<version>1.2.31</version>
 		</dependency>
 		<!-- Display Tag Lib是一个标签库，用来处理jsp网页上的Table，功能非常强，可以对的Table进行分页、数据导出、分组、对列排序,页面El表达式 -->
 		<dependency>
